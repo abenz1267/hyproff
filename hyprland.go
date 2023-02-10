@@ -31,7 +31,7 @@ func (h *Hyprland) Entries() []Entry {
 		}
 
 		if strings.HasPrefix(line, "title:") {
-			entries[len(entries)-1].Name = fmt.Sprintf("Window: %s", strings.TrimPrefix(line, "title:"))
+			entries[len(entries)-1].Name = fmt.Sprintf("Window: %s", strings.TrimPrefix(line, "title: "))
 			continue
 		}
 
