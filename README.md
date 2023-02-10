@@ -6,6 +6,7 @@ List of:
 
 - windows to focus
 - executables in $PATH
+- desktop entries
 
 ## Install
 
