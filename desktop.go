@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"strings"
 
 	"github.com/rkoesters/xdg/desktop"
 )
@@ -44,7 +45,7 @@ func (d *Desktop) Entries() []Entry {
 					for _, action := range d.Actions {
 						entries = append(entries, Entry{
 							Name: fmt.Sprintf("Desktop: %s - %s", d.Name, action.Name),
-							Exec: action.Exec,
+							Exec: strings.ReplaceAll(action.Exec, "\"", "'"),
 						})
 					}
 				}
