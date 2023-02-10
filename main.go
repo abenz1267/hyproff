@@ -18,8 +18,9 @@ func main() {
 
 	hyprland := &Hyprland{}
 	path := &Path{}
+	desktop := &Desktop{}
 
-	collectors = append(collectors, hyprland, path)
+	collectors = append(collectors, hyprland, path, desktop)
 
 	for _, collector := range collectors {
 		for _, entry := range collector.Entries() {
