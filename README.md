@@ -6,3 +6,11 @@ List of:
 
 - windows to focus
 - executables in $PATH
+
+## Install
+
+`go install github.com/abenz1267/hyproff@latest`
+
+## Usage
+
+`hyproff | kickoff --from-stdin`
