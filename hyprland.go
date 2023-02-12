@@ -19,7 +19,7 @@ func (h Hyprland) IsAvailable(config Config) bool {
 	return config.containsModule(h.Identifier())
 }
 
-func (h Hyprland) Entries(config Config) []Entry {
+func (h Hyprland) Entries() []Entry {
 	cmd := exec.Command("hyprctl", "clients")
 
 	out, err := cmd.Output()

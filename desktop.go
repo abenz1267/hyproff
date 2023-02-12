@@ -22,7 +22,7 @@ func (d Desktop) IsAvailable(config Config) bool {
 	return config.containsModule(d.Identifier())
 }
 
-func (d Desktop) Entries(config Config) []Entry {
+func (d Desktop) Entries() []Entry {
 	entries := []Entry{}
 
 	for _, location := range desktopFileLocations {

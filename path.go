@@ -18,7 +18,7 @@ func (p Path) IsAvailable(config Config) bool {
 	return config.containsModule(p.Identifier())
 }
 
-func (p Path) Entries(config Config) []Entry {
+func (p Path) Entries() []Entry {
 	entries := []Entry{}
 
 	path := os.Getenv("PATH")

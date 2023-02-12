@@ -21,15 +21,15 @@ type Entry struct {
 }
 
 type Module interface {
-	Entries(config Config) []Entry
+	Entries() []Entry
 	Identifier() string
 	IsAvailable(config Config) bool
 }
 
 type Config struct {
-	Terminal  string    `json:"terminal"`
-	Modules   []string  `json:"modules"`
-	VimConfig VimConfig `json:"vim_config"`
+	Terminal string   `json:"terminal"`
+	Modules  []string `json:"modules"`
+	Vim      Vim      `json:"vim"`
 }
 
 func (c Config) containsModule(module string) bool {
@@ -42,17 +42,11 @@ func (c Config) containsModule(module string) bool {
 	return false
 }
 
-type VimConfig struct {
-	SessionDir string `json:"session_dir"`
-	Editor     string `json:"editor"`
-	Label      string `json:"label"`
-}
-
 func main() {
 	config := loadConfig()
 	enabled := []Module{}
 
-	modules := []Module{Hyprland{}, Path{}, Desktop{}, Vim{}}
+	modules := []Module{Hyprland{}, Path{}, Desktop{}, config.Vim}
 
 	for _, module := range modules {
 		if module.IsAvailable(config) {
@@ -61,7 +55,7 @@ func main() {
 	}
 
 	for _, collector := range enabled {
-		for _, entry := range collector.Entries(config) {
+		for _, entry := range collector.Entries() {
 			if entry.Terminal {
 				fmt.Printf("%s=%s %s\n", entry.Name, config.Terminal, entry.Exec)
 
@@ -103,11 +97,7 @@ func createDefaultConfig(configDir string) Config {
 
 	c := Config{
 		Modules: []string{Hyprland{}.Identifier(), Path{}.Identifier(), Desktop{}.Identifier(), Vim{}.Identifier()},
-		VimConfig: VimConfig{
-			SessionDir: "",
-			Editor:     "vim",
-			Label:      "Vim",
-		},
+		Vim:     Vim{}.defaultConfig(),
 	}
 
 	err := os.MkdirAll(dir, PermFolder)
