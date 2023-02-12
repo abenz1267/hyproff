@@ -8,6 +8,7 @@ Modules:
 - `path`: executables in $PATH
 - `desktop`: desktop entries
 - `vim`: vim/neovim sessions
+- `custom`: custom entries
 
 ## Install
 
@@ -25,9 +26,18 @@ Example:
 {
   "terminal": "kitty",
   "modules": ["hyprland", "path", "desktop", "vim"],
-  "vim_config": {
+  "vim": {
     "session_dir": "/home/andrej/.local/share/nvim/sessions",
     "editor": "nvim"
+  },
+  "custom": {
+    "label": "Custom",
+    "entries": [
+      {
+        "name": "MyCustomEntry",
+        "exec": "dosomething"
+      }
+    ]
   }
 }
 ```

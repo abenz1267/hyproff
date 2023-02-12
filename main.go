@@ -30,6 +30,7 @@ type Config struct {
 	Terminal string   `json:"terminal"`
 	Modules  []string `json:"modules"`
 	Vim      Vim      `json:"vim"`
+	Custom   Custom   `json:"custom"`
 }
 
 func (c Config) containsModule(module string) bool {
@@ -46,7 +47,7 @@ func main() {
 	config := loadConfig()
 	enabled := []Module{}
 
-	modules := []Module{Hyprland{}, Path{}, Desktop{}, config.Vim}
+	modules := []Module{Hyprland{}, Path{}, Desktop{}, config.Vim, config.Custom}
 
 	for _, module := range modules {
 		if module.IsAvailable(config) {
@@ -98,6 +99,7 @@ func createDefaultConfig(configDir string) Config {
 	c := Config{
 		Modules: []string{Hyprland{}.Identifier(), Path{}.Identifier(), Desktop{}.Identifier(), Vim{}.Identifier()},
 		Vim:     Vim{}.defaultConfig(),
+		Custom:  Custom{}.defaultConfig(),
 	}
 
 	err := os.MkdirAll(dir, PermFolder)
