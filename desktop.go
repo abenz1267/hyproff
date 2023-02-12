@@ -10,6 +10,8 @@ import (
 	"github.com/rkoesters/xdg/desktop"
 )
 
+var removableCodes = []string{"f", "u"}
+
 var desktopFileLocations = []string{"/usr/share/applications/", "/usr/local/share/applications/", "~/.local/share/applications/"}
 
 type Desktop struct{}
@@ -51,9 +53,16 @@ func (d Desktop) Entries() []Entry {
 
 				if d.Type == desktop.Application && !d.NoDisplay {
 					for _, action := range d.Actions {
+						cmd := strings.ReplaceAll(action.Exec, "\"", "'")
+
+						for _, code := range removableCodes {
+							cmd = strings.ReplaceAll(cmd, "%"+code, "")
+							cmd = strings.ReplaceAll(cmd, "%"+strings.ToUpper(code), "")
+						}
+
 						entries = append(entries, Entry{
 							Name:     fmt.Sprintf("Desktop: %s - %s", d.Name, action.Name),
-							Exec:     strings.ReplaceAll(action.Exec, "\"", "'"),
+							Exec:     cmd,
 							Terminal: d.Terminal,
 						})
 					}
