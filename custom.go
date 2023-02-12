@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 type Custom struct {
 	Label         string  `json:"label"`
 	CustomEntries []Entry `json:"entries"`
@@ -21,5 +23,15 @@ func (c Custom) IsAvailable(config Config) bool {
 }
 
 func (c Custom) Entries() []Entry {
-	return c.CustomEntries
+	entries := []Entry{}
+
+	for _, entry := range c.CustomEntries {
+		entries = append(entries, Entry{
+			Name:     fmt.Sprintf("%s: %s", c.Label, entry.Name),
+			Exec:     entry.Exec,
+			Terminal: entry.Terminal,
+		})
+	}
+
+	return entries
 }
