@@ -14,7 +14,15 @@ var desktopFileLocations = []string{"/usr/share/applications/", "/usr/local/shar
 
 type Desktop struct{}
 
-func (d *Desktop) Entries() []Entry {
+func (d Desktop) Identifier() string {
+	return "desktop"
+}
+
+func (d Desktop) IsAvailable(config Config) bool {
+	return config.containsModule(d.Identifier())
+}
+
+func (d Desktop) Entries(config Config) []Entry {
 	entries := []Entry{}
 
 	for _, location := range desktopFileLocations {
@@ -44,8 +52,9 @@ func (d *Desktop) Entries() []Entry {
 				if d.Type == desktop.Application && !d.NoDisplay {
 					for _, action := range d.Actions {
 						entries = append(entries, Entry{
-							Name: fmt.Sprintf("Desktop: %s - %s", d.Name, action.Name),
-							Exec: strings.ReplaceAll(action.Exec, "\"", "'"),
+							Name:     fmt.Sprintf("Desktop: %s - %s", d.Name, action.Name),
+							Exec:     strings.ReplaceAll(action.Exec, "\"", "'"),
+							Terminal: d.Terminal,
 						})
 					}
 				}

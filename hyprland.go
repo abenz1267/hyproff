@@ -11,7 +11,15 @@ import (
 
 type Hyprland struct{}
 
-func (h *Hyprland) Entries() []Entry {
+func (h Hyprland) Identifier() string {
+	return "hyprland"
+}
+
+func (h Hyprland) IsAvailable(config Config) bool {
+	return config.containsModule(h.Identifier())
+}
+
+func (h Hyprland) Entries(config Config) []Entry {
 	cmd := exec.Command("hyprctl", "clients")
 
 	out, err := cmd.Output()

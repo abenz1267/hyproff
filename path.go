@@ -10,7 +10,15 @@ import (
 
 type Path struct{}
 
-func (p *Path) Entries() []Entry {
+func (p Path) Identifier() string {
+	return "path"
+}
+
+func (p Path) IsAvailable(config Config) bool {
+	return config.containsModule(p.Identifier())
+}
+
+func (p Path) Entries(config Config) []Entry {
 	entries := []Entry{}
 
 	path := os.Getenv("PATH")
