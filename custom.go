@@ -18,10 +18,6 @@ func (c Custom) defaultConfig() Custom {
 	}
 }
 
-func (c Custom) IsAvailable(config Config) bool {
-	return config.containsModule(c.Identifier())
-}
-
 func (c Custom) Entries() []Entry {
 	entries := []Entry{}
 

@@ -14,10 +14,6 @@ func (p Path) Identifier() string {
 	return "path"
 }
 
-func (p Path) IsAvailable(config Config) bool {
-	return config.containsModule(p.Identifier())
-}
-
 func (p Path) Entries() []Entry {
 	entries := []Entry{}
 

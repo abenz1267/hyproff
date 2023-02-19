@@ -37,7 +37,7 @@ Example:
 ```json
 {
   "terminal": "kitty",
-  "modules": ["hyprland", "path", "desktop", "vim"],
+  "modules": ["custom", "hyprland", "vim", "desktop", "path"], // also acts as order for priority from higher to lowest.
   "vim": {
     "session_dir": "/home/andrej/.local/share/nvim/sessions",
     "editor": "nvim"
