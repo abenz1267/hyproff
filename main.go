@@ -23,7 +23,6 @@ type Entry struct {
 type Module interface {
 	Entries() []Entry
 	Identifier() string
-	IsAvailable(config Config) bool
 }
 
 type Config struct {
@@ -49,13 +48,17 @@ func main() {
 
 	modules := []Module{Hyprland{}, Path{}, Desktop{}, config.Vim, config.Custom}
 
-	for _, module := range modules {
-		if module.IsAvailable(config) {
-			enabled = append(enabled, module)
+	for _, v := range config.Modules {
+		for _, module := range modules {
+			if module.Identifier() == v {
+				enabled = append(enabled, module)
+			}
 		}
 	}
 
-	for _, collector := range enabled {
+	for k, collector := range enabled {
+		fmt.Printf("%%base_score=%d", k)
+
 		for _, entry := range collector.Entries() {
 			if entry.Terminal {
 				fmt.Printf("%s=%s %s\n", entry.Name, config.Terminal, entry.Exec)
@@ -97,7 +100,7 @@ func createDefaultConfig(configDir string) Config {
 	dir := filepath.Join(configDir, "hyproff")
 
 	c := Config{
-		Modules: []string{Hyprland{}.Identifier(), Path{}.Identifier(), Desktop{}.Identifier(), Vim{}.Identifier()},
+		Modules: []string{Custom{}.Identifier(), Hyprland{}.Identifier(), Vim{}.Identifier(), Desktop{}.Identifier(), Path{}.Identifier()},
 		Vim:     Vim{}.defaultConfig(),
 		Custom:  Custom{}.defaultConfig(),
 	}

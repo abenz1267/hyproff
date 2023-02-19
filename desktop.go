@@ -20,10 +20,6 @@ func (d Desktop) Identifier() string {
 	return "desktop"
 }
 
-func (d Desktop) IsAvailable(config Config) bool {
-	return config.containsModule(d.Identifier())
-}
-
 func (d Desktop) Entries() []Entry {
 	entries := []Entry{}
 

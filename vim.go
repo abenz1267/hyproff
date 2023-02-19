@@ -25,10 +25,6 @@ func (v Vim) defaultConfig() Vim {
 	}
 }
 
-func (v Vim) IsAvailable(config Config) bool {
-	return config.containsModule(v.Identifier()) && v.SessionDir != "" && config.Terminal != ""
-}
-
 func (v Vim) Entries() []Entry {
 	entries := []Entry{}
 
