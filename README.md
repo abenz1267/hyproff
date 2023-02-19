@@ -12,7 +12,19 @@ Modules:
 
 ## Install
 
+### Download binary
+
+Simply download a pre-built binary from the [release page](https://github.com/abenz1267/hyproff/releases)
+
+### With Go
+
+Regular `GOBIN` folder (make sure it's in your `PATH`):
 `go install github.com/abenz1267/hyproff@latest`
+
+Install to custom location:
+`GOBIN=<custom location> go install github.com/abenz1267/hyproff@latest`
+
+f.e. `sudo GOBIN=/usr/bin/ go install github.com/abenz1267/hyproff@latest`
 
 ## Usage
 
