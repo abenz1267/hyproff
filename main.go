@@ -57,7 +57,7 @@ func main() {
 	}
 
 	for k, collector := range enabled {
-		fmt.Printf("%%base_score=%d", k)
+		fmt.Printf("%%base_score=%d\n", k)
 
 		for _, entry := range collector.Entries() {
 			if entry.Terminal {
